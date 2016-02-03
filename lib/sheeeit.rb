@@ -26,9 +26,8 @@ module Sheeeit
     end
 
     def request_worksheet name
-      if configuration.spreadsheet_key.nil? || configuration.worksheet_name.nil? || configuration.google_auth.nil? || !File.exists?(configuration.google_auth)
-        raise NotConfiguredError.new("must set worksheet_title, spreadsheet_key," \
-                                     "google_auth and google_auth must point to valid file")
+      if configuration.spreadsheet_key.nil? || configuration.worksheet_name.nil? || configuration.google_auth.nil?
+        raise NotConfiguredError.new("must set worksheet_title, spreadsheet_key and google_auth ")
       end
 
 
