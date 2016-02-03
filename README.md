@@ -1,9 +1,11 @@
+[ ![Codeship Status for lomography/sheeeit](https://codeship.com/projects/a8fd5320-abe9-0133-616e-2a6aaeef6a7e/status?branch=master)](https://codeship.com/projects/131493)
+
 # Sheeeit
 
 Sheeeit will take data in the form of arrays of arrays, e.g. ``[["Name", "Computer", "Pet"], ["Martin", "C64", "Rock"], ["Alice", "IBM PC Compatible", "Dog"], ["Fred", "IBM System/360", "Mammoth"]]`` and write it into the worksheet of a Google Docs spreadsheet. In addition, if wanted, it will keep an overview worksheet which keeps track of the last update of every single worksheet.
 
 
-The hard work of connecting to Google Drive and actually altering spreadsheets is done by the awesome [https://github.com/gimite/google-drive-ruby](google-drive-ruby) gem. This gem just provides a more convenient way to (re)write a whole worksheets in one go (and optionally keeping an overview of all the worksheets).
+The hard work of connecting to Google Drive and actually altering spreadsheets is done by the awesome [google-drive-ruby](https://github.com/gimite/google-drive-ruby) gem. Sheeeit just provides a more convenient way to (re)write a whole worksheets in one go (and optionally keeping an overview of all the worksheets).
 
 ## Installation
 
@@ -44,12 +46,12 @@ end
 
 The following keys are required for everything to work:
 * ``google-auth``: Path to an authentication json file. Defaults to ``config/sheeeit.json`` and will be autocreated if it doesn't exist.
-* ``spreadsheet_key``: The key to the spreadsheet you want to write to. You can find the key of the spreadsheet by opening the spreadsheet in google docs. The url should look like ``https://docs.google.com/spreadsheets/d/<spreadsheet_key>/edit#``
+* ``spreadsheet_key``: The key to the spreadsheet you want to write to. You can find the key of the spreadsheet by opening the spreadsheet in Google Docs. The url should look like ``https://docs.google.com/spreadsheets/d/<spreadsheet_key>/edit#``
 * ``worksheet_name``: Give a name to your worksheet.
 
 ### Google Docs Auth
 
-After setting up the gem, if you run ``Sheeeit.write_spreadsheet`` without a authentication file, you will be prompted something like this:
+After setting up the gem, if you run ``Sheeeit.write_spreadsheet`` without an authentication file, you will be prompted something like this:
 
 ```
 1. Open this page:
@@ -69,7 +71,7 @@ Once everything is configured, usage is rather straightforward:
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. Tests are mostly built on mocking the interface provided by [https://github.com/gimite/google-drive-ruby](google-drive-ruby) and ensuring Sheeeit is calling the right methods, since we don't want to actually connect to Google Drive while testing.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. Tests are mostly built on mocking the interface provided by [google-drive-ruby](https://github.com/gimite/google-drive-ruby) and ensuring Sheeeit is calling the right methods, since we don't want to actually connect to Google Drive while testing (which is what google-drive-ruby is doing in its tests).
 
 
 ## Contributing
