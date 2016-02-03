@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class SheeeitTest < Minitest::Test
+
+  def setup
+    Sheeeit.reset
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::Sheeeit::VERSION
   end
@@ -16,6 +21,8 @@ class SheeeitTest < Minitest::Test
   end
 
   def test_write_spreadsheet_only_accepts_an_array_of_arrays
+    configure_sheeeit
+
     assert_raises(Sheeeit::InvalidDataError) { Sheeeit.write_spreadsheet [] }
     assert_raises(Sheeeit::InvalidDataError) { Sheeeit.write_spreadsheet [1,2,3] }
     assert_raises(Sheeeit::InvalidDataError) { Sheeeit.write_spreadsheet [[1,2,3], 4, 5, 6] }
@@ -27,6 +34,8 @@ class SheeeitTest < Minitest::Test
   #
 
   def test_write_spreadsheet_should_pass_data_to_a_writer
+    configure_sheeeit
+
     worksheet = stub_everything("worksheet")
     writer = mock
 
@@ -38,10 +47,9 @@ class SheeeitTest < Minitest::Test
   end
 
   def test_update_overview_should_pass_data_to_a_writer
+    configure_sheeeit
     Sheeeit.configure do |config|
-      config.overview = true
       config.overview_header = ["Something Something", "Header"]
-      config.worksheet_name  = "testing_overview"
     end
 
     worksheet = stub_everything("worksheet")
@@ -52,10 +60,18 @@ class SheeeitTest < Minitest::Test
     Sheeeit::Writer.expects(:new).returns(writer)
     writer.expects(:write).with([["Something Something", "Header"], ["testing_overview", Date.today.to_s]])
 
-    Sheeeit.udpate_overview
+    Sheeeit.update_overview
   end
 
   private
+
+    def configure_sheeeit
+      Sheeeit.configure do |config|
+        config.spreadsheet_key = "some-key"
+        config.worksheet_name  = "testing_overview"
+        config.overview = false
+      end
+    end
 
     def data
       [
