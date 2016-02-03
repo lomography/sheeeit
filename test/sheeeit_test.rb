@@ -37,7 +37,7 @@ class SheeeitTest < Minitest::Test
     Sheeeit.write_spreadsheet(data)
   end
 
-  def test_write_overview_should_pass_data_to_a_writer
+  def test_update_overview_should_pass_data_to_a_writer
     Sheeeit.configure do |config|
       config.overview = true
       config.overview_header = ["Something Something", "Header"]
@@ -52,7 +52,7 @@ class SheeeitTest < Minitest::Test
     Sheeeit::Writer.expects(:new).returns(writer)
     writer.expects(:write).with([["Something Something", "Header"], ["testing_overview", Date.today.to_s]])
 
-    Sheeeit.write_overview
+    Sheeeit.udpate_overview
   end
 
   private

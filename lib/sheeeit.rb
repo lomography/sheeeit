@@ -45,10 +45,10 @@ module Sheeeit
       worksheet = request_worksheet configuration.worksheet_name
       writer = Writer.new(worksheet)
       writer.write data
-      write_overview if configuration.overview
+      update_overview if configuration.overview
     end
 
-    def write_overview
+    def update_overview
       worksheet = request_worksheet "overview"
       rows = worksheet.rows.map { |r| r.dup } # unfreeze rows
       rows = update_overview_rows(rows)
